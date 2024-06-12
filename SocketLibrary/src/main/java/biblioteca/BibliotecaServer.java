@@ -1,6 +1,5 @@
 package biblioteca;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.type.CollectionType;
@@ -13,11 +12,12 @@ import java.util.List;
 
 public class BibliotecaServer {
     private static final String ARQUIVO_JSON = "src/main/resources/livros.json";
+    private static List<Livro> livros;
 
     public static void main(String[] args) {
         carregarLivros();
 
-        final int PORTA = 1337;
+        final int PORTA = 12344;
 
         try {
             ServerSocket servidorSocket = new ServerSocket(PORTA);
@@ -51,13 +51,14 @@ public class BibliotecaServer {
         } else {
             System.out.println("Arquivo JSON não encontrado, criando novo arquivo...");
             livros = new ArrayList<>();
-            salvarLivros();
+            salvarLivros(); // Save an empty list to create the file
         }
     }
 
     private static synchronized void salvarLivros() {
         ObjectMapper mapper = new ObjectMapper();
         try {
+            // Wrap the list in an object with a "livros" key
             mapper.writeValue(new File(ARQUIVO_JSON), new LivrosWrapper(livros));
         } catch (IOException e) {
             e.printStackTrace();
@@ -131,6 +132,44 @@ public class BibliotecaServer {
             }
             return "Livro não encontrado.";
         }
+
+        private String devolverLivro(String nomeLivro) {
+            for (Livro livro : livros) {
+                if (livro.getTitulo().equals(nomeLivro)) {
+                    livro.setExemplares(livro.getExemplares() + 1);
+                    salvarLivros();
+                    return "Livro devolvido com sucesso.";
+                }
+            }
+            return "Livro não encontrado.";
+        }
+
+        private String cadastrarLivro(String livroJson) {
+            String[] atributos = livroJson.split(",");
+            String autor = atributos[0].trim();
+            String titulo = atributos[1].trim();
+            String genero = atributos[2].trim();
+            int exemplares = Integer.parseInt(atributos[3].trim());
+            Livro novoLivro = new Livro(autor, titulo, genero, exemplares);
+            livros.add(novoLivro);
+            salvarLivros();
+            return "Livro cadastrado com sucesso.";
+        }
+    }
+
+    static class LivrosWrapper {
+        private List<Livro> livros;
+
+        public LivrosWrapper(List<Livro> livros) {
+            this.livros = livros;
+        }
+
+        public List<Livro> getLivros() {
+            return livros;
+        }
+
+        public void setLivros(List<Livro> livros) {
+            this.livros = livros;
+        }
     }
 }
-
