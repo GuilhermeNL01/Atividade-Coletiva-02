@@ -108,6 +108,29 @@ public class BibliotecaServer {
                     return "Operação inválida.";
             }
         }
+
+        private String listarLivros() {
+            StringBuilder resposta = new StringBuilder();
+            for (Livro livro : livros) {
+                resposta.append(livro.toString()).append("\n");
+            }
+            return resposta.toString();
+        }
+
+        private String alugarLivro(String nomeLivro) {
+            for (Livro livro : livros) {
+                if (livro.getTitulo().equals(nomeLivro)) {
+                    if (livro.getExemplares() > 0) {
+                        livro.setExemplares(livro.getExemplares() - 1);
+                        salvarLivros();
+                        return "Livro alugado com sucesso.";
+                    } else {
+                        return "Não há exemplares disponíveis para este livro.";
+                    }
+                }
+            }
+            return "Livro não encontrado.";
+        }
     }
 }
 
