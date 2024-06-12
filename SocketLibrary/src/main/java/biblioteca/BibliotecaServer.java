@@ -51,7 +51,62 @@ public class BibliotecaServer {
         } else {
             System.out.println("Arquivo JSON não encontrado, criando novo arquivo...");
             livros = new ArrayList<>();
-            salvarLivros(); // Criar uma função para save
+            salvarLivros();
+        }
+    }
+
+    private static synchronized void salvarLivros() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File(ARQUIVO_JSON), new LivrosWrapper(livros));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static class ClienteHandler implements Runnable {
+        private Socket clienteSocket;
+
+        public ClienteHandler(Socket clienteSocket) {
+            this.clienteSocket = clienteSocket;
+        }
+
+        @Override
+        public void run() {
+            try {
+                BufferedReader entrada = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
+                PrintWriter saida = new PrintWriter(clienteSocket.getOutputStream(), true);
+
+                String requisicaoCliente;
+                while ((requisicaoCliente = entrada.readLine()) != null) {
+                    String resposta = processarRequisicao(requisicaoCliente);
+                    saida.println(resposta);
+                }
+
+                clienteSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private String processarRequisicao(String requisicao) {
+            String[] partes = requisicao.split("#");
+            String operacao = partes[0];
+
+            switch (operacao) {
+                case "listar":
+                    return listarLivros();
+                case "alugar":
+                    return alugarLivro(partes[1]);
+                case "devolver":
+                    return devolverLivro(partes[1]);
+                case "cadastrar":
+                    return cadastrarLivro(partes[1]);
+                case "sair":
+                    return "Saindo...";
+                default:
+                    return "Operação inválida.";
+            }
         }
     }
 }
