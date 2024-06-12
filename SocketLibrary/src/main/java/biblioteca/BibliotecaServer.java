@@ -36,7 +36,23 @@ public class BibliotecaServer {
     }
 
     private static synchronized void carregarLivros() {
-        // Método para carregar os livros do arquivo JSON
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(ARQUIVO_JSON);
+        if (file.exists()) {
+            try {
+                JsonNode rootNode = mapper.readTree(file);
+                JsonNode livrosNode = rootNode.path("livros");
+                CollectionType listType = mapper.getTypeFactory().constructCollectionType(List.class, Livro.class);
+                livros = mapper.convertValue(livrosNode, listType);
+            } catch (IOException e) {
+                e.printStackTrace();
+                livros = new ArrayList<>();
+            }
+        } else {
+            System.out.println("Arquivo JSON não encontrado, criando novo arquivo...");
+            livros = new ArrayList<>();
+            salvarLivros(); // Criar uma função para save
+        }
     }
 }
 
