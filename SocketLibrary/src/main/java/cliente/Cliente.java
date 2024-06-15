@@ -74,5 +74,24 @@ public class Cliente {
         System.out.print("Escolha uma opção: ");
     }
 
+    //metodo de listagem
+    private static void listarLivros(PrintWriter saida, BufferedReader entrada) throws IOException {
+        saida.println("listar");
+        String resposta;
+        while ((resposta = entrada.readLine()) != null) {
+            if (resposta.isEmpty()) break;
+            System.out.println(resposta);
+        }
+    }
+
+    //método de aluguel
+    private static void alugarLivro(PrintWriter saida, BufferedReader entrada, Scanner scanner) throws IOException {
+        System.out.print("Nome do livro: ");
+        String nomeLivro = scanner.nextLine();
+        saida.println("alugar#" + nomeLivro);
+        String resposta = entrada.readLine();
+        System.out.println(resposta);
+    }
+
 
 }
