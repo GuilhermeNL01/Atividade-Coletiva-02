@@ -29,7 +29,11 @@ Este projeto implementa um sistema simples de gerenciamento de uma biblioteca ut
     java BibliotecaServer
     ```
 
-3. O servidor estará pronto para receber registros de clientes e adição de livros.
+3. Inicie o servidor do Cliente:
+    ```sh
+    java Cliente
+    ```
+4. O servidor estará pronto para receber registros de clientes e adição de livros.
 
 ## Requisitos
 - Java JDK 8 ou superior.
