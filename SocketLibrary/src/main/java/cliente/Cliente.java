@@ -63,5 +63,16 @@ public class Cliente {
         }
     }
 
+    // menu de exibição do usuário
+    private static void exibirMenu() {
+        System.out.println("Biblioteca:");
+        System.out.println("1. Listar livros");
+        System.out.println("2. Alugar livro");
+        System.out.println("3. Devolver livro");
+        System.out.println("4. Cadastrar livro");
+        System.out.println("5. Sair");
+        System.out.print("Escolha uma opção: ");
+    }
+
 
 }
