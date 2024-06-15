@@ -52,5 +52,16 @@ public class Livro implements Serializable {
     public void setExemplares(int exemplares) {
         this.exemplares = exemplares;
     }
-    
+
+    // formatador
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "autor='" + autor + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", genero='" + genero + '\'' +
+                ", exemplares=" + exemplares +
+                '}';
+    }
+
 }
