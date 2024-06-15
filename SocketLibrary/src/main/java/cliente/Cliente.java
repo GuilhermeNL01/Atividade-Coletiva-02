@@ -8,7 +8,7 @@ public class Cliente {
 
     // portas
     private static final String HOST = "localhost";
-    private static final int PORTA = 12344;
+    private static final int PORTA = 1337;
 
     //opcoes
     private static final String LISTAR_LIVROS = "1";
