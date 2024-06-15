@@ -93,5 +93,14 @@ public class Cliente {
         System.out.println(resposta);
     }
 
+    //Método de devolução
+    private static void devolverLivro(PrintWriter saida, BufferedReader entrada, Scanner scanner) throws IOException {
+        System.out.print("Nome do livro: ");
+        String nomeLivro = scanner.nextLine();
+        saida.println("devolver#" + nomeLivro);
+        String resposta = entrada.readLine();
+        System.out.println(resposta);
+    }
+
 
 }
