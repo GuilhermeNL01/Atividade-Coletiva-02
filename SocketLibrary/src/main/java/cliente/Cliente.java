@@ -102,5 +102,22 @@ public class Cliente {
         System.out.println(resposta);
     }
 
+    //método de cadastro
+    private static void cadastrarLivro(PrintWriter saida, BufferedReader entrada, Scanner scanner) throws IOException {
+        System.out.print("Autor: ");
+        String autor = scanner.nextLine();
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+        System.out.print("Genero: ");
+        String genero = scanner.nextLine();
+        System.out.print("Número de exemplares: ");
+        int numExemplares = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+        String livroJson = autor + "," + nome + "," + genero + "," + numExemplares;
+        saida.println("cadastrar#" + livroJson);
+        String resposta = entrada.readLine();
+        System.out.println(resposta);
+    }
+
 
 }
