@@ -1,4 +1,4 @@
-package biblioteca;
+package biblioteca.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 @JsonPropertyOrder({"titulo", "autor", "genero", "exemplares"})
 public class Livro implements Serializable {
-    // Atributos do livro
     private String autor;
     private String titulo;
     private String genero;
@@ -54,7 +53,6 @@ public class Livro implements Serializable {
         this.exemplares = exemplares;
     }
 
-    // Formatador
     @Override
     public String toString() {
         return "Livro{" +

@@ -1,35 +1,25 @@
-package cliente;
+package biblioteca.client;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class Cliente {
-
-    // portas
     private static final String HOST = "localhost";
     private static final int PORTA = 1336;
 
-    //opcoes
     private static final String LISTAR_LIVROS = "1";
     private static final String ALUGAR_LIVRO = "2";
     private static final String DEVOLVER_LIVRO = "3";
     private static final String CADASTRAR_LIVRO = "4";
     private static final String SAIR = "5";
 
-    // principal
     public static void main(String[] args) {
-        try {
-            //inicializando socket
-            Socket socket = new Socket(HOST, PORTA);
+        try (Socket socket = new Socket(HOST, PORTA);
+             BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             PrintWriter saida = new PrintWriter(socket.getOutputStream(), true);
+             Scanner scanner = new Scanner(System.in)) {
 
-           // Leitores pro sistema
-
-            BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter saida = new PrintWriter(socket.getOutputStream(), true);
-            Scanner scanner = new Scanner(System.in);
-
-            //use cases
             String opcao;
             do {
                 exibirMenu();
@@ -56,14 +46,11 @@ public class Cliente {
                         System.out.println("Opção inválida.");
                 }
             } while (!opcao.equals(SAIR));
-
-            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // menu de exibição do usuário
     private static void exibirMenu() {
         System.out.println("Biblioteca:");
         System.out.println("1. Listar livros");
@@ -74,7 +61,6 @@ public class Cliente {
         System.out.print("Escolha uma opção: ");
     }
 
-    //metodo de listagem
     private static void listarLivros(PrintWriter saida, BufferedReader entrada) throws IOException {
         saida.println("listar");
         String resposta;
@@ -84,7 +70,6 @@ public class Cliente {
         }
     }
 
-    //método de aluguel
     private static void alugarLivro(PrintWriter saida, BufferedReader entrada, Scanner scanner) throws IOException {
         System.out.print("Nome do livro: ");
         String nomeLivro = scanner.nextLine();
@@ -93,7 +78,6 @@ public class Cliente {
         System.out.println(resposta);
     }
 
-    //Método de devolução
     private static void devolverLivro(PrintWriter saida, BufferedReader entrada, Scanner scanner) throws IOException {
         System.out.print("Nome do livro: ");
         String nomeLivro = scanner.nextLine();
@@ -102,7 +86,6 @@ public class Cliente {
         System.out.println(resposta);
     }
 
-    //método de cadastro
     private static void cadastrarLivro(PrintWriter saida, BufferedReader entrada, Scanner scanner) throws IOException {
         System.out.print("Autor: ");
         String autor = scanner.nextLine();
@@ -112,12 +95,10 @@ public class Cliente {
         String genero = scanner.nextLine();
         System.out.print("Número de exemplares: ");
         int numExemplares = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         String livroJson = autor + "," + nome + "," + genero + "," + numExemplares;
         saida.println("cadastrar#" + livroJson);
         String resposta = entrada.readLine();
         System.out.println(resposta);
     }
-
-
 }
