@@ -18,7 +18,7 @@ public class BibliotecaServer {
     public static void main(String[] args) {
         carregarLivros(); // Carrega os livros do arquivo JSON
 
-        final int PORTA = 1337; // Porta do servidor
+        final int PORTA = 1336; // Porta do servidor
 
         try {
             ServerSocket servidorSocket = new ServerSocket(PORTA); // Cria um ServerSocket na porta especificada
