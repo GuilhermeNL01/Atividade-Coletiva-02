@@ -2,6 +2,7 @@ package biblioteca;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.CollectionType;
 
 import java.io.*;
@@ -60,6 +61,7 @@ public class BibliotecaServer {
     // Método sincronizado para salvar os livros no arquivo JSON
     private static synchronized void salvarLivros() {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT); // Configura o ObjectMapper para usar a saída indentada
         try {
             // Envolve a lista de livros em um objeto com a chave "livros"
             mapper.writeValue(new File(ARQUIVO_JSON), new LivrosWrapper(livros));

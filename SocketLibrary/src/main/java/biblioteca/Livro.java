@@ -1,10 +1,12 @@
 package biblioteca;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.io.Serializable;
 
-
+@JsonPropertyOrder({"titulo", "autor", "genero", "exemplares"})
 public class Livro implements Serializable {
-    // carach do livro
+    // Atributos do livro
     private String autor;
     private String titulo;
     private String genero;
@@ -19,8 +21,7 @@ public class Livro implements Serializable {
         this.exemplares = exemplares;
     }
 
-    //getters e setters
-
+    // Getters e setters
     public String getAutor() {
         return autor;
     }
@@ -53,7 +54,7 @@ public class Livro implements Serializable {
         this.exemplares = exemplares;
     }
 
-    // formatador
+    // Formatador
     @Override
     public String toString() {
         return "Livro{" +
@@ -63,5 +64,4 @@ public class Livro implements Serializable {
                 ", exemplares=" + exemplares +
                 '}';
     }
-
 }
