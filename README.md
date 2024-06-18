@@ -22,30 +22,10 @@ Este projeto implementa um sistema simples de gerenciamento de uma biblioteca ut
 - Felipe Vasconcelos Cardoso
 
 ## Instruções para Execução
-1. Navegue até o diretório `src/main/java/`:
-    ```sh
-    cd src/main/java/
-    ```
+1. Inicie o servidor de biblioteca
+2. Inicie o cliente
+3. Agora será possível executar as ações do Cliente
 
-2. Compile os arquivos Java:
-    ```sh
-    javac biblioteca/client/Cliente.java biblioteca/model/Livro.java biblioteca/server/BibliotecaServer.java biblioteca/server/ClienteHandler.java biblioteca/utils/JsonUtils.java
-    ```
-
-3. Navegue de volta para a raiz do projeto:
-    ```sh
-    cd ../../../..
-    ```
-
-4. Inicie o servidor de biblioteca:
-    ```sh
-    java -cp src/main/java biblioteca.server.BibliotecaServer
-    ```
-
-5. Inicie o cliente:
-    ```sh
-    java -cp src/main/java biblioteca.client.Cliente
-    ```
 
 6. O servidor estará pronto para receber registros de clientes e adição de livros.
 
