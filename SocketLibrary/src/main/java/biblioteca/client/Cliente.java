@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Cliente {
     private static final String HOST = "localhost";
-    private static final int PORTA = 1336;
+    private static final int PORTA = 9090;
 
     private static final String LISTAR_LIVROS = "1";
     private static final String ALUGAR_LIVRO = "2";

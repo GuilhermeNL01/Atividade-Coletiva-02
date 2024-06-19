@@ -18,7 +18,7 @@ public class BibliotecaServer {
     public static void main(String[] args) {
         // Carrega a lista de livros utilizando a classe utilitária JsonUtils
         livros = JsonUtils.carregarLivros();
-        final int PORTA = 1336; // Porta em que o servidor está escutando
+        final int PORTA = 9090; // Porta em que o servidor está escutando
 
         try (ServerSocket servidorSocket = new ServerSocket(PORTA)) {
             System.out.println("Servidor pronto para receber conexões...");
