@@ -5,7 +5,7 @@ import biblioteca.utils.JsonUtils;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
+import java.util.*;
 
 /**
  * A classe GerenciadorCliente implementa a interface Runnable para lidar com as requisições de um cliente.
@@ -14,6 +14,7 @@ import java.util.List;
 public class GerenciadorCliente implements Runnable {
     private Socket clienteSocket; // Socket para comunicação com o cliente
     private List<Livro> livros; // Lista de livros disponíveis na biblioteca
+    private static Map<Socket, List<Livro>> livrosAlugados = new HashMap<>(); // Rastreamento de livros alugados por cliente
 
     /**
      * Construtor para inicializar ClienteHandler com o socket do cliente e a lista de livros.
@@ -24,6 +25,7 @@ public class GerenciadorCliente implements Runnable {
     public GerenciadorCliente(Socket clienteSocket, List<Livro> livros) {
         this.clienteSocket = clienteSocket;
         this.livros = livros;
+        livrosAlugados.putIfAbsent(clienteSocket, new ArrayList<>()); // Inicializa a lista de livros alugados para este cliente
     }
 
     /**
@@ -101,6 +103,7 @@ public class GerenciadorCliente implements Runnable {
             if (livro.getTitulo().equals(nomeLivro)) {
                 if (livro.getExemplares() > 0) {
                     livro.setExemplares(livro.getExemplares() - 1);
+                    livrosAlugados.get(clienteSocket).add(livro); // Adiciona o livro à lista de livros alugados pelo cliente
                     JsonUtils.salvarLivros(livros); // Salva a lista atualizada de livros
                     return "Livro alugado com sucesso.";
                 } else {
@@ -118,14 +121,16 @@ public class GerenciadorCliente implements Runnable {
      * @return uma mensagem indicando o sucesso ou falha na operação de devolução
      */
     private String devolverLivro(String nomeLivro) {
-        for (Livro livro : livros) {
+        List<Livro> livrosCliente = livrosAlugados.get(clienteSocket);
+        for (Livro livro : livrosCliente) {
             if (livro.getTitulo().equals(nomeLivro)) {
                 livro.setExemplares(livro.getExemplares() + 1);
+                livrosCliente.remove(livro); // Remove o livro da lista de livros alugados pelo cliente
                 JsonUtils.salvarLivros(livros); // Salva a lista atualizada de livros
                 return "Livro devolvido com sucesso.";
             }
         }
-        return "Livro não encontrado.";
+        return "Você não alugou este livro ou já o devolveu.";
     }
 
     /**
