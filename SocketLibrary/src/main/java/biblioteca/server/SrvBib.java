@@ -12,7 +12,7 @@ import java.util.List;
  * A classe BibliotecaServer representa o servidor da aplicação de biblioteca.
  * Este servidor aguarda conexões de clientes e delega o processamento para threads separadas.
  */
-public class BibliotecaServer {
+public class SrvBib {
     private static List<Livro> livros; // Lista de livros carregada a partir de um arquivo JSON
 
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class BibliotecaServer {
                 System.out.println("Cliente conectado: " + clienteSocket);
                 
                 // Inicia uma nova thread para lidar com o cliente conectado
-                new Thread(new ClienteHandler(clienteSocket, livros)).start();
+                new Thread(new GerenciadorCliente(clienteSocket, livros)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
