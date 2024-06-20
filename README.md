@@ -12,8 +12,8 @@ Este projeto implementa um sistema simples de gerenciamento de uma biblioteca ut
 ## Arquivos do Projeto
 - `Cliente.java`: Define a classe Cliente com atributos nome e id, além de métodos para acessar essas informações. Localizado em `src/main/java/biblioteca/client/`.
 - `Livro.java`: Define a classe Livro com atributos título, autor, ano de publicação e disponibilidade, além de métodos para acessar e modificar essas informações. Localizado em `src/main/java/biblioteca/model/`.
-- `BibliotecaServer.java`: Implementa o servidor da biblioteca, permitindo adicionar livros, registrar clientes e listar livros e clientes registrados. Localizado em `src/main/java/biblioteca/server/`.
-- `ClienteHandler.java`: Gerencia a comunicação com os clientes conectados ao servidor. Localizado em `src/main/java/biblioteca/server/`.
+- `SrvBib.java`: Implementa o servidor da biblioteca, permitindo adicionar livros, registrar clientes e listar livros e clientes registrados. Localizado em `src/main/java/biblioteca/server/`.
+- `GerenciadorCliente.java`: Gerencia a comunicação com os clientes conectados ao servidor. Localizado em `src/main/java/biblioteca/server/`.
 - `JsonUtils.java`: Utilitários para manipulação de JSON, como leitura e escrita de arquivos JSON. Localizado em `src/main/java/biblioteca/utils/`.
 - `livros.json`: Arquivo JSON contendo os dados dos livros. Localizado em `src/main/resources/`.
 
