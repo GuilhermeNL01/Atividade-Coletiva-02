@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.List;
 
 /**
- * A classe ClienteHandler implementa a interface Runnable para lidar com as requisições de um cliente.
+ * A classe GerenciadorCliente implementa a interface Runnable para lidar com as requisições de um cliente.
  * Ela processa operações relacionadas aos livros da biblioteca, como listar, alugar, devolver e cadastrar livros.
  */
 public class GerenciadorCliente implements Runnable {

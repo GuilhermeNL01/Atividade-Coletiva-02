@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.util.List;
 
 /**
- * A classe BibliotecaServer representa o servidor da aplicação de biblioteca.
+ * A classe SrvBib representa o servidor da aplicação de biblioteca.
  * Este servidor aguarda conexões de clientes e delega o processamento para threads separadas.
  */
 public class SrvBib {
